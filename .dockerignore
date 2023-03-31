@@ -1,0 +1,11 @@
+app/.cache
+app/.editorconfig
+app/.env
+app/.env.example
+app/.gitignore
+app/.strapi-updater.json
+app/.tmp
+app/dist
+app/database
+app/node_modules
+app/README.md
