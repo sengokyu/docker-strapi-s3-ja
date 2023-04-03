@@ -1,4 +1,4 @@
-TAG_NAME=strapi:4.9.0
+TAG_NAME=strapi:4.9.0-s3-ja
 
 all: image
 
