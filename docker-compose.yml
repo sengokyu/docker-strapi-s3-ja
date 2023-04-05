@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  db:
+    image: mariadb:jammy
+    command: '--default-authentication-plugin=mysql_native_password'
+    environment:
+      - MYSQL_ROOT_PASSWORD=strapi
+      - MYSQL_DATABASE=strapi
+      - MYSQL_USER=strapi
+      - MYSQL_PASSWORD=strapi
+    expose:
+      - 3306
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u$$MYSQL_USER -p$$MYSQL_PASSWORD
+      interval: 10s
+      timeout: 1m
+  strapi:
+    image: strapi:4.9.0-s3-ja
+    ports:
+      - 1337:1337
+    environment:
+      - HOST=0.0.0.0
+      - PORT=1337
+      - APP_KEYS=M/V/fueUTOL46Huxaz9IwQ==,SHyddq7TiDzs17BnPPTzUA==,sZfVubz738d1rrQTc0Pdjg==,pQEJYgcNc3rnptx7FZSPiA==
+      - API_TOKEN_SALT=Q24F3E9dt1Oc8wrpojBjhw==
+      - ADMIN_JWT_SECRET=HMr9bMkEzLbcictoo09CDQ==
+      - TRANSFER_TOKEN_SALT=HjKpB8RBHhiwgYvr8ockGQ==
+      - JWT_SECRET=/yJCPyHVmbhEVVAuXw+/qg==
+      - DATABASE_CLIENT=mysql
+      - DATABASE_HOST=db
+      - DATABASE_NAME=strapi
+      - DATABASE_USERNAME=strapi
+      - DATABASE_PASSWORD=strapi
+    depends_on:
+      db:
+        condition: service_healthy
